@@ -17,7 +17,11 @@ const prompt = args[2];
 const result = await model.generateContent(prompt);
     // console.log(result.response.candidates[0].groundingMetadata);
     // console.dir(result.response);
-    console.log(result.response.candidates[0].content.parts[0].text);
+    // console.log(result.response.candidates[0].content.parts[0].text);
+    // console.dir(result.response.candidates[0].content.parts);
+    for (part of result.response.candidates[0].content.parts){
+        console.log(part.text)
+    }
 
 
 })();
