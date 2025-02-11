@@ -15,14 +15,22 @@ const prompt = args[2];
 (async () => {
 
 const result = await model.generateContent(prompt);
-    // console.log(result.response.candidates[0].groundingMetadata);
-    // console.dir(result.response);
-    // console.log(result.response.candidates[0].content.parts[0].text);
-    // console.dir(result.response.candidates[0].content.parts);
+    var output = ""
     for (part of result.response.candidates[0].content.parts){
-        console.log(part.text)
+       output = output + part.text;
     }
+    output = output + "## evidences -------------------------------------" + "\n";
+    if (result.response.candidates[0].groundingMetadata.groundingSupports){
+        for (support of result.response.candidates[0].groundingMetadata.groundingSupports) {
+            output = output + support.segment.text + "\n";
+            for (indice of support.groundingChunkIndices) {
+                output = output + result.response.candidates[0].groundingMetadata.groundingChunks[indice].web.title + "\n";
+                output = output + result.response.candidates[0].groundingMetadata.groundingChunks[indice].web.uri + "\n";
+            }
+        }
 
+    }
+    console.log(output)
 
 })();
 
