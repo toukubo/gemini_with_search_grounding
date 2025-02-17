@@ -1,8 +1,9 @@
+require('dotenv').config();
 const {GoogleGenerativeAI} = require("@google/generative-ai");
 const API_KEY = process.env.api_key;
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.0-pro-exp',
     tools: [{ googleSearch: {} }]
 });
 var args = process.argv;
